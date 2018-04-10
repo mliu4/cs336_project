@@ -1,0 +1,13 @@
+
+build/classes/com/cs336/pkg/ApplicationDB.class
+*.class
+.settings/org.eclipse.wst.jsdt.ui.superType.name
+*.class
+build/classes/com/cs336/pkg/ApplicationDB.class
+.settings/org.eclipse.wst.jsdt.ui.superType.container
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.settings/org.eclipse.wst.common.component
+.settings/org.eclipse.jdt.core.prefs
+.settings/.jsdtscope
+.project
+.classpath

@@ -25,6 +25,9 @@
 		String usernamebox = request.getParameter("username");
 		String passwordbox = request.getParameter("password");
 		
+		//TO IMPLEMENT - CUSTOMER REP CREATION. FOR ADMINS ONLY
+		
+		
 		stmt.executeUpdate("INSERT INTO User(username, password) VALUES ('" + usernamebox + "', '" + passwordbox + "');");
 	} catch (Exception ex) {
 		out.print(ex);

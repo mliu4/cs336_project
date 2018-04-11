@@ -7,6 +7,26 @@
 <title>Register Here</title>
 </head>
 <body>
+
+<!-- Navigation Bar code -->
+<div align= center class = "navigation">
+<a href = "main_index.jsp">HOME</a>
+<% 
+	if(session.getAttribute("user") == null){
+%>
+<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
+<%} else{
+%>
+<a href = "logOut.jsp">Log Out</a>
+<%}%>
+<a href = "searchBrowse.jsp">Search & Browse</a>
+<a href = "CREATEAUCTION.jsp">Create an Auction</a>
+</div>
+
+<br>
+
+<!-- Registration box code -->
+<div align = center>
 <form method="post" action="submitInfo.jsp">
 <table>
 	<tr>
@@ -19,5 +39,7 @@
 	<br>
 	<input type="submit" value="Register">
 </form>
+</div>
+
 </body>
 </html>

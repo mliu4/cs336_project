@@ -22,13 +22,28 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
-		String usernamebox = request.getParameter("username");
-		String passwordbox = request.getParameter("password");
+		String userID = request.getParameter("username");
+		String userPass = request.getParameter("password");
 		
-		ResultSet rs = stmt.executeQuery("SELECT username, password FROM User WHERE ((username = '" + usernamebox + "') AND (password = '" + passwordbox + "'));");
-		rs.next();
-		out.println(rs.getString("username"));
-		out.println(rs.getString("password"));
+		ResultSet rs = stmt.executeQuery("SELECT username, password FROM User WHERE ((username = '" + userID + "') AND (password = '" + userPass + "'));");
+	
+		
+		if(rs.next()){
+			session.setAttribute("user", userID); //Username is stored in session	
+			out.println("Login successful. Welcome " + userID);
+			
+			//Logout button
+			out.println("<a href = 'logOut.jsp'>Log Out</a>");
+			
+			//Redirect to homepage
+			response.sendRedirect("main_index.jsp");
+			
+		}
+		else{
+			//Invalid Login credentials
+			out.println("Invalid username or password. <a href = loginPage.jsp>Try again.</a>");
+		}
+		
 	} catch (Exception ex) {
 		out.print(ex);
 	}

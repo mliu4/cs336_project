@@ -13,7 +13,7 @@ public class ApplicationDB {
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://cs336db.c1ahniozkdqz.us-east-1.rds.amazonaws.com:3306/BarBeerDrinkerSample";
+		String connectionUrl = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
 		Connection connection = null;
 		
 		try {
@@ -31,7 +31,8 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl,"cs336", "cs336test");
+			//Credentials used to connect to DB. In this case, changed from cs336 test to daveyjones94 and doubleK1LL
+			connection = DriverManager.getConnection(connectionUrl,"daveyjones94", "doubleK1LL");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

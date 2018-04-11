@@ -20,7 +20,7 @@
 <a href = "logOut.jsp">Log Out</a>
 <%}%>
 <a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "CREATEAUCTION.jsp">Create an Auction</a>
+<a href = "createAuction.jsp">Create an Auction</a>
 </div>
 
 <br>

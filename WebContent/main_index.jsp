@@ -30,7 +30,7 @@ Welcome to Candle Feet
 <a href = "logOut.jsp">Log Out</a>
 <%}%>
 <a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "CREATEAUCTION.jsp">Create an Auction</a>
+<a href = "createAuction.jsp">Create an Auction</a>
 </div>
 
 <br>
@@ -39,7 +39,7 @@ Welcome to Candle Feet
 <div align = center class = "body">
 Welcome to Candle Feet, <%if (session.getAttribute("user")==null){out.print("New User");}else{out.print(session.getAttribute("user"));}%>, the internet's premier footwear auction house!
 <br>
-Create a new account to get started or go ahead and browse through ongoing auctions for the foot adornement of your dreams!
+Create a new account to get started or go ahead and browse through ongoing auctions for the foot adornment of your dreams!
 </div>
 
 

@@ -2,15 +2,15 @@
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
-<%@page import="java.io.PrintWriter"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Auction View</title>
 </head>
 <body>
 <%
+	Connection con = null;
 	try {
 		//Create a connection string
 		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
@@ -18,7 +18,7 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
+		con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
@@ -26,7 +26,7 @@
 		//String auctionID = request.getParameter("auctionID");
 		
 		//We are just looking to see if this works
-		String auctionID = "14";
+		String auctionID = "19";
 		
 		ResultSet rs1 = stmt.executeQuery("SELECT auctioneerUsername, auctionItemID, finishDateTime, winningBidID FROM Auctions WHERE (auctionID = '" + auctionID + "');");
 		rs1.next();
@@ -54,24 +54,29 @@
 			rs3.next();
 			String bidderName = rs3.getString("bidderName");
 			float bidAmount = rs3.getFloat("bidAmount");
-			out.println(bidderName + " is currently winning this bid at " + bidAmount + "<br>");
-			out.println("Enter " + (bidAmount + .01) + "or more in order to bid!<br>");
+			out.println(String.format("<b>%s</b> is currently winning the auction with a bid of <b>$%.2f</b><br>", bidderName, bidAmount));
+			out.println(String.format("Enter <b>$%.2f</b> or more in order to bid!", (bidAmount + .01)));
 		}
+		if (!(username.equals((String)session.getAttribute("user")))) { %>
+		<form method="post" action="submitBid.jsp">
+		<table>
+			<tbody>
+				<tr>
+					<td>Bid Amount</td>
+					<td><input type="text" name="bidAmount"></td>
+				</tr>
+			</tbody>
+		</table>
+			<br>
+			<input type="hidden" name="auctionID" value="<%out.println(auctionID);%>">
+			<input type="submit" value="Bid!">
+		</form>
+	<% }
 	} catch (Exception ex) {
 		out.print(ex);
+	} finally {
+		con.close();
 	}
 %>
-<form method="post" action="submitBid.jsp">
-<table>
-	<tbody>
-		<tr>
-			<td>Bid Amount</td>
-			<td><input type="text" name="bidAmount"></td>
-		</tr>
-	</tbody>
-</table>
-	<br>
-	<input type="submit" value="Bid!">
-</form>
 </body>
 </html>

@@ -44,21 +44,34 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
+			String query = "SELECT * FROM Auctions a, Item i WHERE a.auctionItemID = i.itemID AND ";
+			
 			//Get commands from searchBrowse.jsp search bar
-			String entity = request.getParameter("searchBar");
+			String searchType = request.getParameter("searchType");
+			String searchInput = request.getParameter("searchBar");
 			
-			//Parsing commands into an array list
-			String[] searchTerms = entity.split(" ");
-			
-			//Execute SQL query for search commands, Identifying 
-			//Creating a sql statement for each desired filter
-			for (int x = 0; x<searchTerms.length; x++){
-				
+			//Switch statement to query properly
+			if (searchType.equals("details")){
+				query+= "i.details LIKE" + "\"" + "%" + searchInput + "%" + "\"";
+			}
+			else if (searchType.equals("searchColor")){
+				query+= "i.color LIKE" + "\"" + "%" + searchInput + "%" + "\"";
+			}
+			else if (searchType.equals("searchSize")){
+				query+= "i.size LIKE" + "\"" + "%" + searchInput + "%" + "\"";
+			}
+			else if (searchType.equals("searchStyle")){
+				query+= "i.style LIKE" + "\"" + "%" + searchInput + "%" + "\"";
+			}
+			else{
+				response.sendRedirect("searchBrowse.jsp");
 			}
 			
+			out.print(query);
+			
+			ResultSet result = stmt.executeQuery(query);
 			
 			//Creating a table for search results with some default values and their desired attributes.
-			
 			//Create table headers
 			out.print("<table style='width:100%'>");
 			
@@ -91,6 +104,46 @@
 			out.print("</tr>");
 			out.print("<br>");
 			
+			while(result.next()){
+				
+				//Make row
+				out.print("<tr>");
+
+				//Make column and fill with correct attribute
+				//auctionID
+				out.print("<td>");
+				out.print(result.getInt("auctionID"));
+				out.print("</td>");
+				
+				//auctionItemID
+				out.print("<td>");
+				out.print(result.getInt("auctionItemID"));
+				out.print("</td>");
+				
+				//Item Details
+				out.print("<td>");
+				out.print(result.getString("details"));
+				out.print("</td>");
+				
+				//TimeLeft
+				out.print("<td>");
+				out.print(result.getInt("timeLeft"));
+				out.print("</td>");
+				
+				//Auctioneer
+				out.print("<td>");
+				out.print(result.getInt("auctioneerUsername"));
+				out.print("</td>");
+				
+				out.print("</tr>");
+				out.print("<br>");
+				
+			}
+
+			out.print("</table>");
+			
+			//close connection
+			con.close();
 			
 		}catch(Exception e){
 			out.print("e");

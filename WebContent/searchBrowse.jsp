@@ -24,7 +24,7 @@
 <a href = "logOut.jsp">Log Out</a>
 <%}%>
 <a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "CREATEAUCTION.jsp">Create an Auction</a>
+<a href = "createAuction.jsp">Create an Auction</a>
 </div>
 
 <br>
@@ -33,9 +33,17 @@
 <div align = left>
 	<h1>Search for Shoes</h1>
 	<form method = post action = "searchQuery.jsp">
-		<h3>Search for shoes by keyword command</h3>
+		Search returns item auctions with greatest relevance to search terms.
 		<br>
-		Search for shoes: <input type = "text" name = "searchBar">
+		Enter Single search terms
+		<select name = "searchType">
+			<option value = "details">Item Details</option>
+			<option value = "searchColor">Color</option>
+			<option value = "searchSize">Shoe Size</option>
+			<option value = "searchStyle">Shoe Style</option>
+		</select>
+		<input type = "text" name = "searchBar">
+		<br>
 		<input type = "submit" value = Search>
 	</form>
 </div>
@@ -49,25 +57,10 @@
 		<!-- Re-instantiate the table with the filters selected in new page -->
 		<form method = post action = "filterQuery.jsp">
 			<h5>Filter method</h5>
-			<input type = "radio" name="method" value = "AND">Combine choices (AND)
+			<input type = "radio" name="method" value = "AND" checked>Combine choices (AND)
 			<input type = "radio" name="method" value = "OR">Group choices (OR)
-			
-			<h5>Shoe Color</h5>
-			<input type = "checkbox" name="color" value = "Black">Black
-			<input type = "checkbox" name="color" value = "White">White
-			<input type = "checkbox" name="color" value = "Gray">Gray
-			<input type = "checkbox" name="color" value = "Blue">Blue
-			
-			<h5>Shoe Size</h5>
-			<input type = "text" name="shoesize">
-			
-			<h5>Shoe Style</h5>
-			<input type = "checkbox" name="style" value = "Sneaker">Sneaker
-			<input type = "checkbox" name="style" value = "Dress">Dress
-			<input type = "checkbox" name="style" value = "Sandal">Sandal
-			<input type = "checkbox" name="style" value = "Boot">Boot
 		
-			<input type = "submit" name="filter" value="Apply Filter">
+			<input type = "submit" name="filter" value="Begin Filter">
 		</form>
 		
 </div>
@@ -162,10 +155,9 @@
 				
 			}
 			
-			
 			out.print("</table>");
 					
-			
+			con.close();
 			
 		}catch(Exception e){
 			out.print(e);	

@@ -10,6 +10,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<% 
+	if (session.getAttribute("user") == null) {
+		response.sendRedirect("loginPage.jsp");
+	}
+%>
 <%
 	try {
 		//Create a connection string
@@ -22,6 +27,7 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
+		String auctioneerUsername = (String)session.getAttribute("user");
 		String itemID = request.getParameter("itemID");
 		String reserve = request.getParameter("reserve");
 		String dateandtime = request.getParameter("dateandtime");
@@ -29,7 +35,7 @@
 		String itemType = request.getParameter("itemType");
 		
 		stmt.executeUpdate("INSERT INTO Item(itemID, itemType, details) VALUES ('" + itemID + "', '" + itemType + "', '" + details +  "');");
-		stmt.executeUpdate("INSERT INTO Auctions(auctionItemID, reserve, finishDateTime) VALUES ('" + itemID + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
+		stmt.executeUpdate("INSERT INTO Auctions(auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
 	} catch (Exception ex) {
 		out.print(ex);
 	}

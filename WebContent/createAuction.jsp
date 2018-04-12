@@ -7,6 +7,13 @@
 <title>Create An Auction</title>
 </head>
 <body>
+<% 
+	if (session.getAttribute("user") == null) {
+		response.sendRedirect("loginPage.jsp");
+	} else {
+		out.println("Please create your auction, <b>" + session.getAttribute("user") + "</b><br>");
+	}
+%>
 <form method="post" action="submitAuction.jsp">
 <table>
 	<tbody>

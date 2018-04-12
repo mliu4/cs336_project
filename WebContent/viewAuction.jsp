@@ -35,9 +35,9 @@
 		String finishDateTime = rs1.getString("finishDateTime");
 		String winningBidID = rs1.getString("winningBidID");
 		
-		ResultSet rs2 = stmt.executeQuery("SELECT itemType, details FROM Item WHERE (itemID = '" + itemID + "');");
+		ResultSet rs2 = stmt.executeQuery("SELECT style, details FROM Item WHERE (itemID = '" + itemID + "');");
 		rs2.next();
-		String itemType = rs2.getString("itemType");
+		String itemType = rs2.getString("style");
 		String details = rs2.getString("details");
 		
 		out.println("Title placeholder<br>");
@@ -70,6 +70,10 @@
 			<br>
 			<input type="hidden" name="auctionID" value="<%out.println(auctionID);%>">
 			<input type="submit" value="Bid!">
+		</form>
+		<form method="post" action="createAutobidder.jsp">
+			<input type="hidden" name="auctionID" value="<%out.println(auctionID);%>">
+			<input type="submit" value="Set up Autobidder">
 		</form>
 	<% }
 	} catch (Exception ex) {

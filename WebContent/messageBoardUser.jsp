@@ -15,6 +15,8 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <div align= center class = "navigation">
 <td>Welcome To Question Board Page</td><br />
 <a href = "logOut.jsp">Log Out</a>
+<a href = "mainIndex.jsp">Back to the Main Page</a>
+
 </div>
 
 <div class="container">
@@ -67,7 +69,6 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 			out.println("QuestionID: " + id + "<br />" + "Question Title: " + title + "<br />"+ "Question Details: "+ question + "<br />" + "Answer: " + answer + "<br />" + "<br />" + "<br />");
 		}
 		
-		out.println("<a href = 'main_index.jsp'>Back To Main Page</a>");
 		
 		
 	} catch (Exception ex) {

@@ -31,8 +31,11 @@
 		String bidAmountString = request.getParameter("bidAmount");
 		float bidAmount = Float.parseFloat(bidAmountString);
 		String auctionID = request.getParameter("auctionID");
-		String userID = request.getParameter("userID");
-		out.print(userID + "<br>");
+		String userID = (String)session.getAttribute("user");
+		String passedUser = request.getParameter("userID");
+		out.print("\"" + userID + "\" <br>");
+		out.print("\"" + passedUser + "\" <br>" );
+		out.print(userID.equalsIgnoreCase(passedUser));
 		String upperCapString = request.getParameter("upperCap");
 		float upperCap = Float.parseFloat(upperCapString);
 		
@@ -51,7 +54,6 @@
 			rs2.next();
 			out.print("here");
 			currentWinner = rs2.getString("bidID");
-			stmt.executeUpdate(String.format("UPDATE Auctions SET winningBidID = '%s' WHERE auctionID = '%s'", currentWinner, auctionID));
 			stmt.executeUpdate(String.format("INSERT INTO Autobidder(abAuctionID, abUserID, upperCap) VALUES ('%s', '%s', %.2f)", auctionID, userID, upperCap));
 		} else if (bidAmount <= currentHighest) {
 			out.println("The amount you entered is lower than or equal to the highest bid. <br>");

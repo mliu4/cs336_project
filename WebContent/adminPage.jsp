@@ -76,3 +76,35 @@
     }
 
 %>
+
+	<table>
+	<tr>
+	<td>-----------------------------------------------------------------------------------------------------------------------------------------------------</td>
+	</tr>
+	<tr>
+	<td>Select how you want to Generate a Report For:</td>
+	</tr>
+	</table>
+
+
+<!-- Generate Sales Report -->
+<form method="post" action="generateReport.jsp">
+	<table>
+	<tr>
+	<td><select name="report_style">
+  			<option value="earnings_total">Total Earnings</option>
+  			<option value="earnings_per_item">Earnings Per Item</option>
+  			<option value="earnings_per_type">Earnings Per Type</option>
+  			<option value="earnings_per_user">Earnings Per End-User</option>
+  			<option value="best_selling_items">Best Selling Items</option>
+  			<option value="best_buyers">Best Buyers</option>
+	</select></td>
+	</tr>
+	</table>
+	<br>
+	<input type="submit" value="Generate Sales Report">
+</form>
+
+
+</body>
+</html>

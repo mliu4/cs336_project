@@ -22,20 +22,28 @@
 			<td><input type="text" name="itemID"></td>
 		</tr>
 		<tr>
-			<td>Reserve Amount (in Dollars)</td>
+			<td>Reserve Amount (in Dollars) AKA minimum selling price</td>
 			<td>$<input type="text" name="reserve"></td>
 		</tr>
 		<tr>
-			<td>Auction End Date and Time</td>
+			<td>Auction End Date and Time in m/d/y HH:mm:ss AM/PM format</td>
 			<td><input type="text" name="dateandtime"></td>
 		</tr>
 		<tr>
-			<td>Item Details</td>
+			<td>Item Details. Enter a short description of the item</td>
 			<td><input type="text" name="itemDetails"></td>
 		</tr>
 		<tr>
-			<td>Item Type</td>
-			<td><input type="text" name="itemType"></td>
+			<td>Shoe Color</td>
+			<td><input type="text" name="color"></td>
+		</tr>
+		<tr>
+			<td>Shoe Size</td>
+			<td><input type="text" name="size"></td>
+		</tr>
+		<tr>
+			<td>Shoe Style</td>
+			<td><input type="text" name="style"></td>
 		</tr>
 	</tbody>
 </table>

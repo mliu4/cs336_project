@@ -23,10 +23,10 @@
 		Statement stmt = con.createStatement();
 		
 		//When someone wants to look at an auction, I will need to get this key from that page
-		//String auctionID = request.getParameter("auctionID");
+		String auctionID = request.getParameter("auctionID");
 		
 		//We are just looking to see if this works
-		String auctionID = "19";
+		//String auctionID = "19";
 		
 		ResultSet rs1 = stmt.executeQuery("SELECT auctioneerUsername, auctionItemID, finishDateTime, winningBidID FROM Auctions WHERE (auctionID = '" + auctionID + "');");
 		rs1.next();

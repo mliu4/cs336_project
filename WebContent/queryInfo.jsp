@@ -32,9 +32,6 @@
 			session.setAttribute("user", userID); //Username is stored in session	
 			out.println("Login successful. Welcome " + userID);
 			
-			//Logout button
-			out.println("<a href = 'logOut.jsp'>Log Out</a>");
-			
 			//Redirect to homepage
 			response.sendRedirect("main_index.jsp");
 			

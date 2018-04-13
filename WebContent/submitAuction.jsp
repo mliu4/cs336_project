@@ -32,10 +32,22 @@
 		String reserve = request.getParameter("reserve");
 		String dateandtime = request.getParameter("dateandtime");
 		String details = request.getParameter("itemDetails");
-		String itemType = request.getParameter("itemType");
+		String color = request.getParameter("color");
+		String size = request.getParameter("size");
+		String style = request.getParameter("style");
 		
-		stmt.executeUpdate("INSERT INTO Item(itemID, itemType, details) VALUES ('" + itemID + "', '" + itemType + "', '" + details +  "');");
-		stmt.executeUpdate("INSERT INTO Auctions(auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
+		try{
+			
+			stmt.executeUpdate("INSERT INTO Item(itemID, color, size, style, details) VALUES ('" + itemID + "', '" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
+			stmt.executeUpdate("INSERT INTO Auctions(auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
+			
+			response.sendRedirect("viewAuction.jsp");
+		
+		} catch (Exception e){
+			out.print("Failed to create auction. Redirecting.");
+			response.sendRedirect("submitAuction.jsp");
+		}
+		
 	} catch (Exception ex) {
 		out.print(ex);
 	}

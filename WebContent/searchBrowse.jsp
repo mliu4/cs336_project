@@ -62,6 +62,8 @@
 		
 			<input type = "submit" name="filter" value="Begin Filter">
 		</form>
+
+		<!-- link button -->
 		
 </div>
 
@@ -127,7 +129,7 @@
 				//Make column and fill with correct attribute
 				//auctionID
 				out.print("<td>");
-				out.print(result.getInt("auctionID"));
+				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %></button></form> <%
 				out.print("</td>");
 				
 				//auctionItemID

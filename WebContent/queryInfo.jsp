@@ -25,16 +25,26 @@
 		String userID = request.getParameter("username");
 		String userPass = request.getParameter("password");
 		
-		ResultSet rs = stmt.executeQuery("SELECT username, password FROM User WHERE ((username = '" + userID + "') AND (password = '" + userPass + "'));");
-	
+		ResultSet rs = stmt.executeQuery("SELECT username, password, account_type FROM User WHERE ((username = '" + userID + "') AND (password = '" + userPass + "'));");
+		
 		
 		if(rs.next()){
+			String rsAccountType = rs.getString(3);
+			if(rsAccountType.equals("admin")){
+				
+				response.sendRedirect("adminPage.jsp");
+		
+			} else{
+				
 			session.setAttribute("user", userID); //Username is stored in session	
 			out.println("Login successful. Welcome " + userID);
 			
+			//Logout button
+			out.println("<a href = 'logOut.jsp'>Log Out</a>");
+			
 			//Redirect to homepage
 			response.sendRedirect("main_index.jsp");
-			
+			}
 		}
 		else{
 			//Invalid Login credentials

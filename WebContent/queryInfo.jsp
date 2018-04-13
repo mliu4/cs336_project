@@ -35,6 +35,10 @@
 				
 				response.sendRedirect("adminPage.jsp");
 		
+			} else if(rsAccountType.equals("cus_rep")){
+				
+				response.sendRedirect("repPage.jsp");
+
 			} else{
 				
 			session.setAttribute("user", userID); //Username is stored in session	

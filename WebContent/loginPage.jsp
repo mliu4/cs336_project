@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Here</title>
+<title>Login Page</title>
+
 </head>
 <body>
-
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+<h1>Candle Feet - Shoe Auction House</h1>
+</div>
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -29,10 +37,10 @@
 <form method="post" action="queryInfo.jsp">
 <table>
 	<tr>
-	<td>Username</td><td><input type="text" name="username"></td>
+	<td>Username:<input type="text" name="username"></td>
 	</tr>
 	<tr>
-	<td>Password</td><td><input type="password" name="password"></td>
+	<td>Password:<input type="password" name="password"></td>
 	</tr>
 	</table>
 	<br>

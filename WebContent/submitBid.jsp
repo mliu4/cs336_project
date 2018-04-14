@@ -7,29 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="style.css" />
-<title>Submit a bid</title>
 </head>
 <body>
-<!-- Welcome Banner code -->
-<div align = center class = "banner">
-<h1>Candle Feet - Shoe Auction House</h1>
-</div>
-<!-- Navigation Bar code -->
-<div align= center class = "navigation">
-<a href = "main_index.jsp">HOME</a>
-<% 
-	if(session.getAttribute("user") == null){
-%>
-<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
-<%} else{
-%>
-<a href = "logOut.jsp">Log Out</a>
-<%}%>
-<a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "createAuction.jsp">Create an Auction</a>
-</div>
-
 <% 
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("loginPage.jsp");
@@ -66,11 +45,47 @@
 			ResultSet rs2 = stmt.executeQuery(String.format("SELECT bidID FROM Bid WHERE (bidAmount = %.2f) AND (bidderName = '%s') AND (bidAuction = '%s')", bidAmount, (String)session.getAttribute("user"), auctionID));
 			rs2.next();
 			currentWinner = rs2.getString("bidID");
-			stmt.executeUpdate(String.format("UPDATE Auctions SET winningBidID = '%s' WHERE auctionID = '%s'", currentWinner, auctionID));
 		} else if (bidAmount <= currentHighest) {
 			out.println("The amount you entered is lower than or equal to the highest bid. <br>");
 			out.println("<a href=\"viewAuction.jsp\">Back</a>");
 		}
+		
+		//Check for autobidders
+		ResultSet ab = stmt.executeQuery(String.format("SELECT COUNT(autobidderID) FROM Autobidder WHERE abAuctionID = '%s'", auctionID));
+		ab.next();
+		int numOfAutobidders = ab.getInt("COUNT(autobidderID)");
+		if (numOfAutobidders == 0) {
+			;
+		} else if (numOfAutobidders == 1) {
+			ResultSet ab1 = stmt.executeQuery(String.format("SELECT abUserID, upperCap FROM Autobidder WHERE abAuctionID = '%s'", auctionID));
+			ab1.next();
+			String abUserID = ab1.getString("abUserID").trim();
+			float upperCap = ab1.getFloat("upperCap");
+			if (bidAmount < upperCap) {
+				stmt.executeUpdate(String.format("INSERT INTO Bid(bidAmount, bidderName, bidAuction) VALUES (%.2f, '%s', '%s')", (bidAmount + .01), abUserID, auctionID));
+			} else {
+				stmt.executeUpdate(String.format("UPDATE Autobidder SET outbid = 1 WHERE abAuctionID = '%s'", auctionID));
+			}
+		} else if (numOfAutobidders > 1) {
+			ResultSet ab2 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder"));
+			ab2.next();
+			float maxUpperCap = ab2.getFloat("MAX(upperCap)");
+			String abUser = ab2.getString("abUserID");
+			
+			ResultSet ab3 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder WHERE upperCap != %.2f", maxUpperCap));
+			ab3.next();
+			float secondUpperCap = ab3.getFloat("MAX(upperCap)");
+			if (bidAmount > maxUpperCap) {
+				stmt.executeUpdate(String.format("UPDATE Autobidder SET outbid = 1"));
+			} else if (bidAmount < maxUpperCap && bidAmount > secondUpperCap) {
+				stmt.executeUpdate(String.format("INSERT INTO Bid(bidAmount, bidderName, bidAuction) VALUES (%.2f, '%s', '%s')", (bidAmount + .01), abUser, auctionID));
+				stmt.executeUpdate(String.format("UPDATE Autobidder SET outbid = 1 WHERE upperCap < %.2f", maxUpperCap));
+			} else {
+				stmt.executeUpdate(String.format("INSERT INTO Bid(bidAmount, bidderName, bidAuction) VALUES (%.2f, '%s', '%s')", (secondUpperCap + .01), abUser, auctionID));
+				stmt.executeUpdate(String.format("UPDATE Autobidder SET outbid = 1 WHERE upperCap < %.2f", maxUpperCap));
+			}
+		}
+		
 	} catch (Exception ex) {
 		out.println("At submitBid.jsp<br>");
 		out.print(ex);

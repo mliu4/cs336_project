@@ -9,14 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search Results</title>
-<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-<!-- Welcome Banner code -->
-<div align = center class = "banner">
-<h1>Candle Feet - Shoe Auction House</h1>
-</div>
+
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -29,12 +25,12 @@
 <a href = "logOut.jsp">Log Out</a>
 <%}%>
 <a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "createAuction.jsp">Create an Auction</a>
+<a href = "CREATEAUCTION.jsp">Create an Auction</a>
 </div>
 
 <br>
 
-<div>
+<div align = center>
 
 <!-- Search Engine Query Code -->
 	<%
@@ -48,7 +44,7 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
-			String query = "SELECT * FROM Auctions a, Item i, Bid b WHERE a.auctionItemID = i.itemID AND (a.winningBidID = b.bidID OR a.winningBidID IS NULL) AND ";
+			String query = "SELECT * FROM Auctions a, Item i WHERE a.auctionItemID = i.itemID AND ";
 			
 			//Get commands from searchBrowse.jsp search bar
 			String searchType = request.getParameter("searchType");
@@ -71,61 +67,42 @@
 				response.sendRedirect("searchBrowse.jsp");
 			}
 			
-			query+=" GROUP BY a.auctionID HAVING max(b.bidAmount)";
+			out.print(query);
 			
 			ResultSet result = stmt.executeQuery(query);
 			
-			out.print("<h3>Search Results</h3>");
-			
-			//Print out result table.
+			//Creating a table for search results with some default values and their desired attributes.
 			//Create table headers
-			out.print("<table>");
+			out.print("<table style='width:100%'>");
 			
 			out.print("<tr>");
 			//auctionID
 			out.print("<th>");
-			out.print("Auction ID");
+			out.print("Auction #");
 			out.print("</th>");
 			
-			//winning Bid Value
+			//auctionItemID
 			out.print("<th>");
-			out.print("Winning Bid");
+			out.print("ItemID");
 			out.print("</th>");
 			
-			//TimeLeft
+			//itemDetails
 			out.print("<th>");
-			out.print("Time Left");
+			out.print("Item Details");
 			out.print("</th>");
 			
-			//itemID
+			//timeleft
 			out.print("<th>");
-			out.print("Shoe #");
+			out.print("Time Remaining");
 			out.print("</th>");
 			
-			//itemDescription
+			//Auctioneer
 			out.print("<th>");
-			out.print("Description");
-			out.print("</th>");
-			
-			//Color
-			out.print("<th>");
-			out.print("Color");
-			out.print("</th>");
-			
-			//size
-			out.print("<th>");
-			out.print("Size");
-			out.print("</th>");
-			
-			//style
-			out.print("<th>");
-			out.print("Style");
+			out.print("Auctioneer");
 			out.print("</th>");
 			
 			out.print("</tr>");
 			out.print("<br>");
-			
-			//Fill Table with the above attributes
 			
 			while(result.next()){
 				
@@ -138,14 +115,14 @@
 				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %></button></form> <%
 				out.print("</td>");
 				
-				//Winning Bid
+				//auctionItemID
 				out.print("<td>");
-				if(result.getString("winningBidID")!=null){
-					out.print("$" + result.getInt("bidAmount"));	
-				}
-				else{
-					out.print("No bids");
-				}
+				out.print(result.getInt("auctionItemID"));
+				out.print("</td>");
+				
+				//Item Details
+				out.print("<td>");
+				out.print(result.getString("details"));
 				out.print("</td>");
 				
 				//TimeLeft
@@ -153,56 +130,16 @@
 				out.print(result.getInt("timeLeft"));
 				out.print("</td>");
 				
-				//itemID
+				//Auctioneer
 				out.print("<td>");
-				out.print(result.getInt("itemID"));
-				out.print("</td>");
-				
-				//Item Details
-				out.print("<td>");
-				if(result.getString("details")!=null){
-					out.print(result.getString("details"));
-				}
-				else{
-					out.print("User has not provided description");
-				}
-				out.print("</td>");
-				
-				//Color
-				out.print("<td>");
-				if(result.getString("color")!=null){
-					out.print(result.getString("color"));
-				}
-				else{
-					out.print("-");
-				}
-				out.print("</td>");
-
-				//size
-				out.print("<td>");
-				if(result.getString("size")!=null){
-					out.print(result.getString("size"));
-				}
-				else{
-					out.print("-");
-				}
-				out.print("</td>");
-				
-				//Style
-				out.print("<td>");
-				if(result.getString("style")!=null){
-					out.print(result.getString("style"));
-				}
-				else{
-					out.print("-");
-				}
+				out.print(result.getInt("auctioneerUsername"));
 				out.print("</td>");
 				
 				out.print("</tr>");
 				out.print("<br>");
 				
 			}
-			
+
 			out.print("</table>");
 			
 			//close connection
@@ -219,5 +156,3 @@
 
 
 </body>
-
-</html>

@@ -7,29 +7,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="style.css" />
 <title>Insert title here</title>
 </head>
 <body>
-<!-- Welcome Banner code -->
-<div align = center class = "banner">
-<h1>Candle Feet - Shoe Auction House</h1>
-</div>
-<!-- Navigation Bar code -->
-<div align= center class = "navigation">
-<a href = "main_index.jsp">HOME</a>
-<% 
-	if(session.getAttribute("user") == null){
-%>
-<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
-<%} else{
-%>
-<a href = "logOut.jsp">Log Out</a>
-<%}%>
-<a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "createAuction.jsp">Create an Auction</a>
-</div>
-
 <% 
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("loginPage.jsp");
@@ -51,8 +31,11 @@
 		String bidAmountString = request.getParameter("bidAmount");
 		float bidAmount = Float.parseFloat(bidAmountString);
 		String auctionID = request.getParameter("auctionID");
-		String userID = request.getParameter("userID");
-		out.print(userID + "<br>");
+		String userID = (String)session.getAttribute("user");
+		String passedUser = request.getParameter("userID");
+		out.print("\"" + userID + "\" <br>");
+		out.print("\"" + passedUser + "\" <br>" );
+		out.print(userID.equalsIgnoreCase(passedUser));
 		String upperCapString = request.getParameter("upperCap");
 		float upperCap = Float.parseFloat(upperCapString);
 		
@@ -71,7 +54,6 @@
 			rs2.next();
 			out.print("here");
 			currentWinner = rs2.getString("bidID");
-			stmt.executeUpdate(String.format("UPDATE Auctions SET winningBidID = '%s' WHERE auctionID = '%s'", currentWinner, auctionID));
 			stmt.executeUpdate(String.format("INSERT INTO Autobidder(abAuctionID, abUserID, upperCap) VALUES ('%s', '%s', %.2f)", auctionID, userID, upperCap));
 		} else if (bidAmount <= currentHighest) {
 			out.println("The amount you entered is lower than or equal to the highest bid. <br>");

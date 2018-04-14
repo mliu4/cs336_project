@@ -31,6 +31,7 @@
 </div>
 
 <%
+	Connection con = null;
 	try {
 		//Create a connection string
 		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
@@ -38,19 +39,23 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
+		con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
 		String usernamebox = request.getParameter("username");
 		String passwordbox = request.getParameter("password");
 		
-		//TO IMPLEMENT - CUSTOMER REP CREATION. FOR ADMINS ONLY
-		
-		
-		stmt.executeUpdate("INSERT INTO User(username, password) VALUES ('" + usernamebox + "', '" + passwordbox + "');");
+				if(request.getParameter("account_type")!=null){			
+						String type = request.getParameter("account_type");
+						stmt.executeUpdate("INSERT INTO User(username, password, account_type) VALUES ('" + usernamebox + "', '" + passwordbox + "','" + type + "');");	
+					} else{			
+						stmt.executeUpdate("INSERT INTO User(username, password) VALUES ('" + usernamebox + "', '" + passwordbox + "');");
+					}
 	} catch (Exception ex) {
 		out.print(ex);
+	}finally{
+		con.close();
 	}
 %>
 </body>

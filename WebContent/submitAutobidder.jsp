@@ -51,8 +51,11 @@
 		String bidAmountString = request.getParameter("bidAmount");
 		float bidAmount = Float.parseFloat(bidAmountString);
 		String auctionID = request.getParameter("auctionID");
-		String userID = request.getParameter("userID");
-		out.print(userID + "<br>");
+		String userID = (String)session.getAttribute("user");		
+		String passedUser = request.getParameter("userID");
+		out.print("\"" + userID + "\" <br>");	
+		out.print("\"" + passedUser + "\" <br>" );	
+		out.print(userID.equalsIgnoreCase(passedUser));
 		String upperCapString = request.getParameter("upperCap");
 		float upperCap = Float.parseFloat(upperCapString);
 		

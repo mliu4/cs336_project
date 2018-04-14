@@ -15,7 +15,7 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <div align= center class = "navigation">
 <td>Welcome To Question Board Page</td><br />
 <a href = "logOut.jsp">Log Out</a>
-<a href = "mainIndex.jsp">Back to the Main Page</a>
+<a href = "main_index.jsp">Back to the Main Page</a>
 
 </div>
 

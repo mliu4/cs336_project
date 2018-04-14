@@ -24,8 +24,10 @@
 		<tr>
 			<td>Initial bid</td>
 			<td><input type="text" name="bidAmount"></td>
+		</tr>
 	</tbody>
 </table>
+	<i>An initial bid is not required, but bids will not take effect until someone else bids.</i>
 	<input type="hidden" name="auctionID" value="<%out.println(request.getParameter("auctionID"));%>">
 	<input type="hidden" name="userID" value="<%out.println(session.getAttribute("user"));%>">
 	<br>

@@ -107,7 +107,7 @@
 			
 			//timeleft
 			out.print("<th>");
-			out.print("Time Remaining");
+			out.print("End of Auction");
 			out.print("</th>");
 			
 			//Auctioneer
@@ -144,12 +144,12 @@
 				
 				//TimeLeft
 				out.print("<td>");
-				out.print(result.getInt("timeLeft"));
+				out.print(result.getString("finishDateTime"));
 				out.print("</td>");
 				
 				//Auctioneer
 				out.print("<td>");
-				out.print(result.getInt("auctioneerUsername"));
+				out.print(result.getString("auctioneerUsername"));
 				out.print("</td>");
 				
 				out.print("</tr>");

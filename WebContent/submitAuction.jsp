@@ -16,6 +16,8 @@
 	}
 %>
 <%
+	Connection con = null;
+	String insertedAuction = null;
 	try {
 		//Create a connection string
 		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
@@ -23,33 +25,37 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
+		con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
 		String auctioneerUsername = (String)session.getAttribute("user");
+		String title  = request.getParameter("title");
 		String itemID = request.getParameter("itemID");
 		String reserve = request.getParameter("reserve");
+		if (reserve.isEmpty()) {
+			reserve = "0.00";
+		}
 		String dateandtime = request.getParameter("dateandtime");
 		String details = request.getParameter("itemDetails");
 		String color = request.getParameter("color");
 		String size = request.getParameter("size");
 		String style = request.getParameter("style");
 		
-		try{
-			
-			stmt.executeUpdate("INSERT INTO Item(itemID, color, size, style, details) VALUES ('" + itemID + "', '" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
-			stmt.executeUpdate("INSERT INTO Auctions(auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
-			
-			response.sendRedirect("viewAuction.jsp");
+		stmt.executeUpdate("INSERT INTO Item(itemID, color, size, style, details) VALUES ('" + itemID + "', '" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
+		stmt.executeUpdate("INSERT INTO Auctions(title, auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + title + "', '" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
 		
-		} catch (Exception e){
-			out.print("Failed to create auction. Redirecting.");
-			response.sendRedirect("submitAuction.jsp");
-		}
+		ResultSet sess = stmt.executeQuery("SELECT last_insert_id() as last_id;");
+		sess.next();
+		String thisAuctionID = sess.getString(1);
 		
+		session.setAttribute("auctionID", thisAuctionID);
+		
+		response.sendRedirect("viewAuction.jsp");
 	} catch (Exception ex) {
 		out.print(ex);
+	} finally {
+		con.close();
 	}
 %>
 </body>

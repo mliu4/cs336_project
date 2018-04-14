@@ -8,10 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Filtering Results</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+<h1>Candle Feet - Shoe Auction House</h1>
+</div>
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -29,6 +33,7 @@
 
 <br>
 
+<div>
 <%
 
 		try{
@@ -43,7 +48,8 @@
 			String filterType = request.getParameter("method");
 			
 			//Parse the start of a SQL Query
-			String query = "SELECT DISTINCT * FROM Auctions a, Item i, Bid b WHERE a.auctionItemID = i.itemID AND a.winningBidID = b.bidID AND ";
+			String query = "SELECT DISTINCT * FROM Auctions a, Item i, Bid b WHERE a.auctionItemID = i.itemID AND (a.winningBidID = b.bidID OR a.winningBidID IS NULL) AND ";
+			String str = "SELECT DISTINCT * FROM Auctions a, Item i, Bid b WHERE a.auctionItemID = i.itemID AND (a.winningBidID = b.bidID OR a.winningBidID IS NULL) GROUP BY a.auctionID HAVING max(b.bidAmount)";
 			
 			if(filterType.equals("AND")){
 				
@@ -84,7 +90,7 @@
 				if (query.substring(query.length() - 7).equals(" WHERE "))
 					query = query.substring(0, query.length() - 7);
 				
-				out.print(query);
+				query+=" GROUP BY a.auctionID HAVING max(b.bidAmount)";
 			}
 			//OR QUERY
 			else if (filterType.equals("OR")){
@@ -149,57 +155,64 @@
 					query = query.substring(0, query.length() - 7);
 				if (query.substring(query.length() - 4).equals(" OR "))
 					query = query.substring(0, query.length() - 4);
-				out.print(query);
+				
+				query+=" GROUP BY a.auctionID HAVING max(b.bidAmount)";
+				
 			}
 			//Executing query
 			ResultSet result = stmt.executeQuery(query);
 			
+			out.print("<h3>Filter Results</h3>");
+			
 			//Print out result table.
 			//Create table headers
-			out.print("<table style='width:100%'>");
+			out.print("<table>");
 			
 			out.print("<tr>");
 			//auctionID
 			out.print("<th>");
-			out.print("auctionID");
+			out.print("Auction ID");
+			out.print("</th>");
+			
+			//winning Bid Value
+			out.print("<th>");
+			out.print("Winning Bid");
 			out.print("</th>");
 			
 			//TimeLeft
 			out.print("<th>");
-			out.print("timeLeft");
+			out.print("Time Left");
 			out.print("</th>");
 			
 			//itemID
 			out.print("<th>");
-			out.print("Item#");
+			out.print("Shoe #");
 			out.print("</th>");
 			
 			//itemDescription
 			out.print("<th>");
-			out.print("details");
+			out.print("Description");
 			out.print("</th>");
 			
 			//Color
 			out.print("<th>");
-			out.print("color");
+			out.print("Color");
 			out.print("</th>");
 			
 			//size
 			out.print("<th>");
-			out.print("size");
+			out.print("Size");
 			out.print("</th>");
 			
 			//style
 			out.print("<th>");
-			out.print("style");
+			out.print("Style");
 			out.print("</th>");
 			
 			out.print("</tr>");
 			out.print("<br>");
 			
 			//Fill Table with the above attributes
-			//Order is : 
-			// auctionID - timeleft - itemID - details - color - size - style
 			
 			while(result.next()){
 				
@@ -210,6 +223,16 @@
 				//auctionID
 				out.print("<td>");
 				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %></button></form> <%
+				out.print("</td>");
+				
+				//Winning Bid
+				out.print("<td>");
+				if(result.getString("winningBidID")!=null){
+					out.print("$" + result.getInt("bidAmount"));	
+				}
+				else{
+					out.print("No bids");
+				}
 				out.print("</td>");
 				
 				//TimeLeft
@@ -224,22 +247,42 @@
 				
 				//Item Details
 				out.print("<td>");
-				out.print(result.getString("details"));
+				if(result.getString("details")!=null){
+					out.print(result.getString("details"));
+				}
+				else{
+					out.print("User has not provided description");
+				}
 				out.print("</td>");
 				
 				//Color
 				out.print("<td>");
-				out.print(result.getString("color"));
+				if(result.getString("color")!=null){
+					out.print(result.getString("color"));
+				}
+				else{
+					out.print("-");
+				}
 				out.print("</td>");
 
 				//size
 				out.print("<td>");
-				out.print(result.getString("size"));
+				if(result.getString("size")!=null){
+					out.print(result.getString("size"));
+				}
+				else{
+					out.print("-");
+				}
 				out.print("</td>");
 				
 				//Style
 				out.print("<td>");
-				out.print(result.getString("style"));
+				if(result.getString("style")!=null){
+					out.print(result.getString("style"));
+				}
+				else{
+					out.print("-");
+				}
 				out.print("</td>");
 				
 				out.print("</tr>");
@@ -262,4 +305,9 @@
 
 
 %>
+</div>
+
+</body>
+</html>
+
 

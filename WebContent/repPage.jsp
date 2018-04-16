@@ -25,6 +25,14 @@
 	<br>
 	<input type="submit" value="Go To Message Board Page [Customer Representative View]">
 </form>
+<form method="post" action="auctionOverview.jsp">
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<input type="submit" value="Go To Auction Overview [Customer Representative View]">
+</form>
 </div>
 </body>
 </html>

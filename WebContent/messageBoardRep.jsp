@@ -38,8 +38,10 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 	  		</div>
 	  		</div>
 	    </div>
-	</div>
-	
+</div>
+<br>
+<a href = "messageBoardRepAnswer.jsp">Show Only Unanswered Questions</a>
+</br>
 	
 	<%
 	Connection con = null;

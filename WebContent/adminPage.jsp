@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Here</title>
+<title>Admin Page</title>
 </head>
 <body>
 
@@ -43,39 +43,6 @@
 <br>
 <br>
 
-<%
-	Connection con =null;
-	try {
-		//Create a connection string
-		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
-		//Load JDBC Driver
-		Class.forName("com.mysql.jdbc.Driver");
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();	
-		con= DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
-		//Create a SQL statement
-		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Item;");
-		int itemCount = 1;
-		while(rs.next()!=false){
-
-            String itemID = rs.getString(1);
-            String unitSold = rs.getString(2);
-            String details = rs.getString(3);
-            String color = rs.getString(4);
-            String size = rs.getString(5);
-            String style = rs.getString(6);
-			out.println("Item "+itemCount + " ItemID:  " + itemID + " Details:   " + details + " Color:   " + color + " Size:   " + size + " Style:   " + style + "<br />");
-			itemCount= itemCount + 1;
-			
-		}
-	} catch (Exception ex) {
-		out.print(ex);
-	} finally {
-        con.close();
-    }
-
-%>
 
 	<table>
 	<tr>

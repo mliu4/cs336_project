@@ -15,7 +15,7 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <div align= center class = "navigation">
 <td>Welcome To Question Board Page</td><br />
 <a href = "logOut.jsp">Log Out</a>
-<a href = "main_index.jsp">Back to the Main Page</a>
+<a href = "mainIndex.jsp">Back to the Main Page</a>
 
 </div>
 
@@ -37,9 +37,13 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 		  		</form>
 		  		</div>
 	  		</div>
-	  		</div>
-	    </div>
-	</div>
+	   </div>
+	   </div>
+</div>
+<br>
+<a href = "messageBoardUserAnswer.jsp">Show Only Answered Questions</a>
+</br>
+	
 	
 	<%
 	Connection con = null;
@@ -68,8 +72,7 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 			
 			out.println("QuestionID: " + id + "<br />" + "Question Title: " + title + "<br />"+ "Question Details: "+ question + "<br />" + "Answer: " + answer + "<br />" + "<br />" + "<br />");
 		}
-		
-		
+				
 		
 	} catch (Exception ex) {
 		out.print(ex);

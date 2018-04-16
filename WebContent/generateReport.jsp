@@ -36,7 +36,7 @@
 				float winBid = Float.parseFloat(numberAsString);
 				totalEarnings=totalEarnings+winBid;
 			}
-			out.println("The Total Earnings of all the auctions is : " + totalEarnings + "<br />" + "<br />");
+			out.println("The Total Earnings of all the auctions is $ " + totalEarnings + "<br />" + "<br />");
 			
 			
 			out.println("<a href = 'adminPage.jsp'>Back To Admin Page</a>");
@@ -48,7 +48,7 @@
 			while(rsItems.next()!=false){
 				
 				String rsItemsID = rsItems.getString(1);
-				ResultSet rs =stmt2.executeQuery("SELECT Bid.bidAmount FROM Bid, Auctions WHERE Bid.BidID=Auctions.winningBidID AND Auctions.auctionItemID="+rsItemsID +";");
+				ResultSet rs =stmt2.executeQuery("SELECT Bid.bidAmount FROM Bid, Auctions WHERE Bid.BidID=Auctions.winningBidID AND Auctions.auctionItemID="+rsItemsID + ";");
 				float itemEarnings=0;
 				
 				while(rs.next()!=false){
@@ -56,7 +56,7 @@
 					float winBid = Float.parseFloat(numberAsString);
 					itemEarnings=itemEarnings+winBid;
 				}
-				out.println("The Earnings of all the auctions for Item with ItemID " + rsItemsID+": " + itemEarnings + "<br />" + "<br />");
+				out.println("The Earnings of all the auctions for Item with ItemID [" + rsItemsID+"] is $ " + itemEarnings + "<br />" + "<br />");
 				
 			}			
 			
@@ -88,7 +88,7 @@
 					}
 				}
 
-				out.println("The Earnings of all the auctions for Item with Style " + style + ": " + itemEarnings + "<br />" + "<br />");
+				out.println("The Earnings of all the auctions for Item with Style [" + style + "] is $ " + itemEarnings + "<br />" + "<br />");
 				
 			}			
 			
@@ -108,7 +108,7 @@
 					float winBid = Float.parseFloat(numberAsString);
 					userEarnings=userEarnings+winBid;
 				}
-				out.println("The Earnings of all the auctions from User " + rsUsername + ": " + userEarnings + "<br />" + "<br />");
+				out.println("The Earnings of all the auctions from [" + rsUsername + "] is $ " + userEarnings + "<br />" + "<br />");
 			}
 			
 			out.println("<a href = 'adminPage.jsp'>Back To Admin Page</a>");
@@ -119,7 +119,7 @@
 			while(rs.next()!=false){
 				String unitsSold = rs.getString(1);
 				String itemID = rs.getString(2);
-				out.println("Item "+ itemID +"sold a total of " + unitsSold + " units"+ "<br />" + "<br />");
+				out.println("Item ["+ itemID +"] sold a total of " + unitsSold + " units"+ "<br />" + "<br />");
 
 			}
 			
@@ -137,7 +137,7 @@
 				while(rs.next()!=false){
 					userPurchases++;
 				}
-				out.println("User "+ rsUsername +"has won " + userPurchases + " auctions"+ "<br />" + "<br />");
+				out.println("User ["+ rsUsername +"] has won " + userPurchases + " auctions"+ "<br />" + "<br />");
 			}
 			
 			out.println("<a href = 'adminPage.jsp'>Back To Admin Page</a>");

@@ -10,16 +10,8 @@
 <body>
 <!-- Welcome Banner code -->
 <div align = center class = "banner">
-<<<<<<< HEAD
 <h1>Candle Feet - Shoe Auction House</h1>
 </div>
-=======
-Welcome to Candle Feet
-</div>
-
-<br>
-
->>>>>>> david
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -34,11 +26,6 @@ Welcome to Candle Feet
 <a href = "searchBrowse.jsp">Search & Browse</a>
 <a href = "createAuction.jsp">Create an Auction</a>
 </div>
-<<<<<<< HEAD
-=======
-
-<br>
->>>>>>> david
 <% 
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("loginPage.jsp");
@@ -118,8 +105,6 @@ Welcome to Candle Feet
 					<option value = "2022">2022</option>
 					<option value = "2023">2023</option>
 				</select>
-			</td>
-			<td>
 				<select name = "hour">
 					<option value = "01">01</option>
 					<option value = "02">02</option>

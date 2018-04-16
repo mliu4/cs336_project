@@ -36,14 +36,25 @@
 		if (reserve.isEmpty()) {
 			reserve = "0.00";
 		}
-		String dateandtime = request.getParameter("dateandtime");
+		
+		//date setup
+		String mm = request.getParameter("month");
+		String dd = request.getParameter("day");
+		String yyyy = request.getParameter("year");
+		String hh = request.getParameter("hour");
+		String min = request.getParameter("minute");
+		String ss = request.getParameter("second");
+		String AMPM = request.getParameter("half");
+		String dateandtime = String.format("%s%s%s %s:%s:%s %s", mm, dd, yyyy, hh, min, ss, AMPM);
+		
+		
 		String details = request.getParameter("itemDetails");
 		String color = request.getParameter("color");
 		String size = request.getParameter("size");
 		String style = request.getParameter("style");
 		
 		stmt.executeUpdate("INSERT INTO Item(itemID, color, size, style, details) VALUES ('" + itemID + "', '" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
-		stmt.executeUpdate("INSERT INTO Auctions(title, auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + title + "', '" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c/%e/%Y %r')));");
+		stmt.executeUpdate("INSERT INTO Auctions(title, auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + title + "', '" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c%e%Y %r')));");
 		
 		ResultSet sess = stmt.executeQuery("SELECT last_insert_id() as last_id;");
 		sess.next();

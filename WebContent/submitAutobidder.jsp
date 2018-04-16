@@ -16,6 +16,7 @@
 	}
 %>
 <%
+	Connection con = null;
 	try {
 		//Create a connection string
 		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
@@ -23,7 +24,7 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
+		con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
@@ -65,6 +66,10 @@
 		}
 	} catch (Exception ex) {
 		out.print(ex);
+	} finally {
+		con.close();
+		session.setAttribute("auctionID", request.getParameter("auctionID"));
+		response.sendRedirect("viewAuction.jsp");
 	}
 %>
 </body>

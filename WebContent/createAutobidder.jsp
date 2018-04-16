@@ -7,6 +7,29 @@
 <title>Create An Auction</title>
 </head>
 <body>
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+Welcome to Candle Feet
+</div>
+
+<br>
+
+<!-- Navigation Bar code -->
+<div align= center class = "navigation">
+<a href = "main_index.jsp">HOME</a>
+<% 
+	if(session.getAttribute("user") == null){
+%>
+<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
+<%} else{
+%>
+<a href = "logOut.jsp">Log Out</a>
+<%}%>
+<a href = "searchBrowse.jsp">Search & Browse</a>
+<a href = "createAuction.jsp">Create an Auction</a>
+</div>
+
+<br>
 <% 
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("loginPage.jsp");

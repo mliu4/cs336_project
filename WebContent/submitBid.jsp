@@ -67,12 +67,12 @@
 				stmt.executeUpdate(String.format("UPDATE Autobidder SET outbid = 1 WHERE abAuctionID = '%s'", auctionID));
 			}
 		} else if (numOfAutobidders > 1) {
-			ResultSet ab2 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder"));
+			ResultSet ab2 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder WHERE abAuctionID = '%s'", auctionID));
 			ab2.next();
 			float maxUpperCap = ab2.getFloat("MAX(upperCap)");
 			String abUser = ab2.getString("abUserID");
 			
-			ResultSet ab3 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder WHERE upperCap != %.2f", maxUpperCap));
+			ResultSet ab3 = stmt.executeQuery(String.format("SELECT abUserID, MAX(upperCap) FROM Autobidder WHERE (upperCap != %.2f) AND (abAuctionID = '%s')", maxUpperCap, auctionID));
 			ab3.next();
 			float secondUpperCap = ab3.getFloat("MAX(upperCap)");
 			if (bidAmount > maxUpperCap) {
@@ -91,6 +91,8 @@
 		out.print(ex);
 	} finally {
 		con.close();
+		session.setAttribute("auctionID", request.getParameter("auctionID"));
+		response.sendRedirect("viewAuction.jsp");
 	}
 %>
 </body>

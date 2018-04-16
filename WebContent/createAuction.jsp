@@ -121,9 +121,11 @@
 				</select>
 				<select name = "minute">
 					<option value = "00">00</option>
-					<option value = "15">15</option>
+					<option value = "10">10</option>
+					<option value = "20">20</option>
 					<option value = "30">30</option>
-					<option value = "45">45</option>
+					<option value = "40">40</option>
+					<option value = "50">50</option>
 				</select>
 				<input type = "hidden" name = "second" value = "00">
 				<select name = "half">

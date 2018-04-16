@@ -51,7 +51,6 @@
 		
 		String auctioneerUsername = (String)session.getAttribute("user");
 		String title  = request.getParameter("title");
-		String itemID = request.getParameter("itemID");
 		String reserve = request.getParameter("reserve");
 		if (reserve.isEmpty()) {
 			reserve = "0.00";
@@ -73,7 +72,10 @@
 		String size = request.getParameter("size");
 		String style = request.getParameter("style");
 		
-		stmt.executeUpdate("INSERT INTO Item(itemID, color, size, style, details) VALUES ('" + itemID + "', '" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
+		stmt.executeUpdate("INSERT INTO Item(color, size, style, details) VALUES ('" + color + "', '" + size + "', '" + style + "', '" + details +  "');");
+		ResultSet rs = stmt.executeQuery("SELECT last_insert_id() as itemID;");
+		rs.next();
+		String itemID = rs.getString(1);
 		stmt.executeUpdate("INSERT INTO Auctions(title, auctionItemID, auctioneerUsername, reserve, finishDateTime) VALUES ('" + title + "', '" + itemID + "', '" + auctioneerUsername + "', " + reserve + ", (STR_TO_DATE('" + dateandtime + "', '%c%e%Y %r')));");
 		
 		ResultSet sess = stmt.executeQuery("SELECT last_insert_id() as last_id;");

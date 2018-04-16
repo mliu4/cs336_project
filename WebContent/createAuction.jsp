@@ -40,10 +40,6 @@
 			<td>Auction Title</td>
 			<td><input type="text" name="title"></td>
 		<tr>
-			<td>Universal Product Code</td>
-			<td><input type="text" name="itemID"></td>
-		</tr>
-		<tr>
 			<td>Reserve Amount (in Dollars)</td>
 			<td>$<input type="text" name="reserve"></td>
 		</tr>

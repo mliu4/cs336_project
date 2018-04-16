@@ -13,16 +13,8 @@
 <body>
 <!-- Welcome Banner code -->
 <div align = center class = "banner">
-<<<<<<< HEAD
 <h1>Candle Feet - Shoe Auction House</h1>
 </div>
-=======
-Welcome to Candle Feet
-</div>
-
-<br>
-
->>>>>>> david
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -39,10 +31,6 @@ Welcome to Candle Feet
 </div>
 
 <br>
-<<<<<<< HEAD
-
-=======
->>>>>>> david
 <%
 	Connection con = null;
 	try {

@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="style.css" />
-<title>Insert title here</title>
+<title>Create Autobidder</title>
 </head>
 <body>
 <!-- Welcome Banner code -->

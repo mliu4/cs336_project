@@ -94,7 +94,7 @@
 			
 			//TimeLeft
 			out.print("<th>");
-			out.print("Time Left");
+			out.print("Finish Time");
 			out.print("</th>");
 			
 			//itemID
@@ -123,7 +123,6 @@
 			out.print("</th>");
 			
 			out.print("</tr>");
-			out.print("<br>");
 			
 			//Fill Table with the above attributes
 			
@@ -135,7 +134,8 @@
 				//Make column and fill with correct attribute
 				//auctionID
 				out.print("<td>");
-				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %></button></form> <%
+				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %> </button></form> <%
+				
 				out.print("</td>");
 				
 				//Winning Bid
@@ -150,7 +150,7 @@
 				
 				//TimeLeft
 				out.print("<td>");
-				out.print(result.getInt("timeLeft"));
+				out.print(result.getString("finishDateTime"));
 				out.print("</td>");
 				
 				//itemID
@@ -170,16 +170,35 @@
 				
 				//Color
 				out.print("<td>");
-				out.print(result.getString("finishDateTime"));
+				if(result.getString("color")!=null){
+					out.print(result.getString("color"));
+				}
+				else{
+					out.print("-");
+				}
+				out.print("</td>");
+
+				//size
+				out.print("<td>");
+				if(result.getString("size")!=null){
+					out.print(result.getString("size"));
+				}
+				else{
+					out.print("-");
+				}
 				out.print("</td>");
 				
 				//Style
 				out.print("<td>");
-				out.print(result.getString("auctioneerUsername"));
+				if(result.getString("style")!=null){
+					out.print(result.getString("style"));
+				}
+				else{
+					out.print("-");
+				}
 				out.print("</td>");
 				
 				out.print("</tr>");
-				out.print("<br>");
 				
 			}
 			

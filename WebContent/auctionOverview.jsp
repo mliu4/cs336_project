@@ -8,7 +8,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Search & Browse</title>
+<title>Auction Overview</title>
 
 </head>
 <body>
@@ -18,17 +18,8 @@
 </div>
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
-<a href = "main_index.jsp">HOME</a>
-<% 
-	if(session.getAttribute("user") == null){
-%>
-<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
-<%} else{
-%>
 <a href = "logOut.jsp">Log Out</a>
-<%}%>
-<a href = "searchBrowse.jsp">Search & Browse</a>
-<a href = "createAuction.jsp">Create an Auction</a>
+<a href = "repPage.jsp">Customer Representative Page</a>
 </div>
 
 <br>
@@ -143,7 +134,7 @@
 				//Make column and fill with correct attribute
 				//auctionID
 				out.print("<td>");
-				%><form method = post action = "viewAuction.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %> </button></form> <%
+				%><form method = post action = "viewAuctionRep.jsp"> <button type = "submit" name = "auctionID" value = <%out.print(result.getString("auctionID"));%> ><% out.print(result.getString("auctionID")); %> </button></form> <%
 				
 				out.print("</td>");
 				

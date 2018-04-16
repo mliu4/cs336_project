@@ -59,12 +59,6 @@
 		String auctionID = request.getParameter("auctionID");
 		String userID = (String)session.getAttribute("user");		
 		String passedUser = request.getParameter("userID");
-<<<<<<< HEAD
-		out.print("\"" + userID + "\" <br>");	
-		out.print("\"" + passedUser + "\" <br>" );	
-		out.print(userID.equalsIgnoreCase(passedUser));
-=======
->>>>>>> david
 		String upperCapString = request.getParameter("upperCap");
 		float upperCap = Float.parseFloat(upperCapString);
 		
@@ -83,7 +77,6 @@
 			stmt.executeUpdate(String.format("INSERT INTO Bid(bidAmount, bidderName, bidAuction) VALUES (%.2f, '%s', '%s')", bidAmount, (String)session.getAttribute("user"), auctionID));
 			ResultSet rs2 = stmt.executeQuery(String.format("SELECT bidID FROM Bid WHERE (bidAmount = %.2f) AND (bidderName = '%s') AND (bidAuction = '%s')", bidAmount, (String)session.getAttribute("user"), auctionID));
 			rs2.next();
-			out.print("here");
 			currentWinner = rs2.getString("bidID");
 			stmt.executeUpdate(String.format("UPDATE Auctions SET winningBidID = '%s' WHERE auctionID = '%s'", currentWinner, auctionID));
 			stmt.executeUpdate(String.format("INSERT INTO Autobidder(abAuctionID, abUserID, upperCap) VALUES ('%s', '%s', %.2f)", auctionID, userID, upperCap));

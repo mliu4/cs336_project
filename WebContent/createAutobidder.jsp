@@ -10,8 +10,16 @@
 <body>
 <!-- Welcome Banner code -->
 <div align = center class = "banner">
+<<<<<<< HEAD
 <h1>Candle Feet - Shoe Auction House</h1>
 </div>
+=======
+Welcome to Candle Feet
+</div>
+
+<br>
+
+>>>>>>> david
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
 <a href = "main_index.jsp">HOME</a>
@@ -26,6 +34,11 @@
 <a href = "searchBrowse.jsp">Search & Browse</a>
 <a href = "createAuction.jsp">Create an Auction</a>
 </div>
+<<<<<<< HEAD
+=======
+
+<br>
+>>>>>>> david
 <% 
 	if (session.getAttribute("user") == null) {
 		response.sendRedirect("loginPage.jsp");
@@ -43,8 +56,10 @@
 		<tr>
 			<td>Initial bid</td>
 			<td><input type="text" name="bidAmount"></td>
+		</tr>
 	</tbody>
 </table>
+	<i>An initial bid is not required, but bids will not take effect until someone else bids.</i>
 	<input type="hidden" name="auctionID" value="<%out.println(request.getParameter("auctionID"));%>">
 	<input type="hidden" name="userID" value="<%out.println(session.getAttribute("user"));%>">
 	<br>

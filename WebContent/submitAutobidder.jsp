@@ -36,6 +36,7 @@
 	}
 %>
 <%
+	Connection con = null;
 	try {
 		//Create a connection string
 		String url = "jdbc:mysql://cs336.crihf3wk4z2b.us-east-2.rds.amazonaws.com/BuySellWebsite";
@@ -43,19 +44,27 @@
 		Class.forName("com.mysql.jdbc.Driver");
 		//Get the database connection
 		ApplicationDB db = new ApplicationDB();	
-		Connection con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
+		con = DriverManager.getConnection(url, "daveyjones94", "doubleK1LL");
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
 		float currentHighest = 0;
+		float bidAmount = 0;
 		String bidAmountString = request.getParameter("bidAmount");
-		float bidAmount = Float.parseFloat(bidAmountString);
+		if (bidAmountString.equals("")) {
+			bidAmount = 0;
+		} else {
+			bidAmount = Float.parseFloat(bidAmountString);
+		}
 		String auctionID = request.getParameter("auctionID");
 		String userID = (String)session.getAttribute("user");		
 		String passedUser = request.getParameter("userID");
+<<<<<<< HEAD
 		out.print("\"" + userID + "\" <br>");	
 		out.print("\"" + passedUser + "\" <br>" );	
 		out.print(userID.equalsIgnoreCase(passedUser));
+=======
+>>>>>>> david
 		String upperCapString = request.getParameter("upperCap");
 		float upperCap = Float.parseFloat(upperCapString);
 		
@@ -67,8 +76,10 @@
 			ResultSet rt1 = stmt.executeQuery(String.format("SELECT bidAmount FROM Bid WHERE bidID = '%s'", currentWinner));
 			rt1.next();
 			currentHighest = rt1.getFloat("bidAmount");
-		} 
-		if (currentWinner == null || bidAmount > currentHighest) {
+		}
+		if (bidAmount == 0) {
+			stmt.executeUpdate(String.format("INSERT INTO Autobidder(abAuctionID, abUserID, upperCap) VALUES ('%s', '%s', %.2f)", auctionID, userID, upperCap));
+		} else if (currentWinner == null || bidAmount > currentHighest) {
 			stmt.executeUpdate(String.format("INSERT INTO Bid(bidAmount, bidderName, bidAuction) VALUES (%.2f, '%s', '%s')", bidAmount, (String)session.getAttribute("user"), auctionID));
 			ResultSet rs2 = stmt.executeQuery(String.format("SELECT bidID FROM Bid WHERE (bidAmount = %.2f) AND (bidderName = '%s') AND (bidAuction = '%s')", bidAmount, (String)session.getAttribute("user"), auctionID));
 			rs2.next();
@@ -82,6 +93,10 @@
 		}
 	} catch (Exception ex) {
 		out.print(ex);
+	} finally {
+		con.close();
+		session.setAttribute("auctionID", request.getParameter("auctionID"));
+		response.sendRedirect("viewAuction.jsp");
 	}
 %>
 </body>

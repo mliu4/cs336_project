@@ -123,7 +123,11 @@
 			
 			//size
 			out.print("<th>");
+<<<<<<< HEAD
 			out.print("Size");
+=======
+			out.print("End of Auction");
+>>>>>>> david
 			out.print("</th>");
 			
 			//style
@@ -179,6 +183,7 @@
 				
 				//Color
 				out.print("<td>");
+<<<<<<< HEAD
 				if(result.getString("color")!=null){
 					out.print(result.getString("color"));
 				}
@@ -195,16 +200,23 @@
 				else{
 					out.print("-");
 				}
+=======
+				out.print(result.getString("finishDateTime"));
+>>>>>>> david
 				out.print("</td>");
 				
 				//Style
 				out.print("<td>");
+<<<<<<< HEAD
 				if(result.getString("style")!=null){
 					out.print(result.getString("style"));
 				}
 				else{
 					out.print("-");
 				}
+=======
+				out.print(result.getString("auctioneerUsername"));
+>>>>>>> david
 				out.print("</td>");
 				
 				out.print("</tr>");

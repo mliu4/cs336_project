@@ -49,8 +49,10 @@
 				if(request.getParameter("account_type")!=null){			
 						String type = request.getParameter("account_type");
 						stmt.executeUpdate("INSERT INTO User(username, password, account_type) VALUES ('" + usernamebox + "', '" + passwordbox + "','" + type + "');");	
+						response.sendRedirect("adminPage.jsp");
 					} else{			
 						stmt.executeUpdate("INSERT INTO User(username, password) VALUES ('" + usernamebox + "', '" + passwordbox + "');");
+						response.sendRedirect("main_index.jsp");
 					}
 	} catch (Exception ex) {
 		out.print(ex);

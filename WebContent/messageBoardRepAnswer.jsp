@@ -7,16 +7,33 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Here</title>
+<title>Question Board [Rep. View]</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-
-<!-- Navigation Bar code -->
-<div align= center class = "navigation">
-<td>Welcome To Unanswered-Question Board Page [Customer Representative View]</td><br />
-<a href = "logOut.jsp">Log Out</a>
-<a href = "repPage.jsp">Back to the Representative Page</a>
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+<h1>Candle Feet - Shoe Auction House</h1>
 </div>
+
+<!--  -->
+<div align= center class = "navigation">
+<a href = "main_index.jsp">HOME</a>
+<% 
+	if(session.getAttribute("user") == null){
+%>
+<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
+<%} else{
+%>
+<a href = "logOut.jsp">Log Out</a>
+<%}%>
+<a href = "searchBrowse.jsp">Search & Browse</a>
+<a href = "createAuction.jsp">Create an Auction</a>
+<a href = "messageBoardRep.jsp">Go to Question Board</a>
+<a href = "repPage.jsp">Back to Representative Page</a>
+</div>
+
+<h2>Question Board [Customer Representative View]</h2>
 
 <div class="container">
 		<div class="row">

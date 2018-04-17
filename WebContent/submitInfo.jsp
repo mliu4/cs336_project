@@ -28,6 +28,7 @@
 <%}%>
 <a href = "searchBrowse.jsp">Search & Browse</a>
 <a href = "createAuction.jsp">Create an Auction</a>
+<a href = "messageBoardUser.jsp">Go to Question Board</a>
 </div>
 
 <%

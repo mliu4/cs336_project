@@ -8,14 +8,34 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login Here</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 
+<% 	if (session.getAttribute("user") == null) {
+		response.sendRedirect("loginPage.jsp");
+	}
+%>
+
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+<h1>Candle Feet - Shoe Auction House</h1>
+</div>
+
 <!-- Navigation Bar code -->
 <div align= center class = "navigation">
-<td>Welcome To Answered-Question Board Page</td><br />
+<a href = "main_index.jsp">HOME</a>
+<% 
+	if(session.getAttribute("user") == null){
+%>
+<a href = "registerOrLogin.jsp">Sign up or Sign in</a>
+<%} else{
+%>
 <a href = "logOut.jsp">Log Out</a>
-<a href = "mainIndex.jsp">Back to the Main Page</a>
+<%}%>
+<a href = "searchBrowse.jsp">Search & Browse</a>
+<a href = "createAuction.jsp">Create an Auction</a>
+<a href = "messageBoardUser.jsp">Go to Question Board</a>
 
 </div>
 

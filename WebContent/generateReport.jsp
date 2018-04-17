@@ -2,6 +2,9 @@
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import= "java.util.Date"%>
+<%@ page import= "java.text.SimpleDateFormat"%>
+<%@ page import= "java.util.Calendar"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -48,7 +51,7 @@
 			while(rsItems.next()!=false){
 				
 				String rsItemsID = rsItems.getString(1);
-				ResultSet rs =stmt2.executeQuery("SELECT Bid.bidAmount FROM Bid, Auctions WHERE Bid.BidID=Auctions.winningBidID AND Auctions.auctionItemID="+rsItemsID + ";");
+				ResultSet rs = stmt2.executeQuery("SELECT Bid.bidAmount FROM Bid, Auctions WHERE Bid.BidID=Auctions.winningBidID AND Auctions.auctionItemID="+rsItemsID + ";");
 				float itemEarnings=0;
 				
 				while(rs.next()!=false){
@@ -58,8 +61,8 @@
 				}
 				out.println("The Earnings of all the auctions for Item with ItemID [" + rsItemsID+"] is $ " + itemEarnings + "<br />" + "<br />");
 				
-			}			
-			
+			}		
+
 			out.println("<a href = 'adminPage.jsp'>Back To Admin Page</a>");
 			
 			//EARNINGS PER TYPE

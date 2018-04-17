@@ -87,27 +87,6 @@
 				bidAmount = rs3.getFloat("bidAmount");
 				out.println(String.format("<b>%s</b> is currently winning the auction with a bid of <b>$%.2f</b><br>", bidderName, bidAmount));
 			}
-			
-			if (!(username.equals((String)session.getAttribute("user")))) {
-			out.println(String.format("Enter <b>$%.2f</b> or more in order to bid!", (bidAmount + .01)));%>
-			<form method="post" action="submitBid.jsp">
-			<table>
-				<tbody>
-					<tr>
-						<td>Bid Amount</td>
-						<td><input type="text" name="bidAmount"></td>
-					</tr>
-				</tbody>
-			</table>
-				<br>
-				<input type="hidden" name="auctionID" value="<%out.println(auctionID);%>">
-				<input type="submit" value="Bid!">
-			</form>
-			<form method="post" action="createAutobidder.jsp">
-				<input type="hidden" name="auctionID" value="<%out.println(auctionID);%>">
-				<input type="submit" value="Set up Autobidder">
-			</form>
-		<% }
 		} else {
 			out.println("<b>" + username + "</b> sold this item<br>");
 			out.println("This auction ended on " + finishDateTime + "<br>");
@@ -130,12 +109,15 @@
 		
 		%>
 		<form method="post" action="deleteAuction.jsp">
-		<input type="submit" name = auctionID value = <%out.print(auctionID);%>>
+		<input type = "hidden" name = auctionID value = <%out.print(auctionID);%>>
+		<input type="submit" name = auctionID value ="Delete Auction">
 		</form>
 		<br>
 		<form method="post" action="deleteTopBid.jsp">
-		<td>Bid you want to Delete<input type="text" name="bidID"></td>
-		<input type="submit" name = "topBid" value = <%out.print(itemID);%>>
+		<td>Bid ID of bid you want to Delete<input type="text" name="bidID"></td>
+		<input type = "hidden" name = topBid value = <%out.print(itemID);%>>
+		<input type = "hidden" name = auctionID value = <%out.print(auctionID);%>>
+		<input type="submit" name = "topBid" value = "Delete Bid">
 		</form>
 		
 		<%

@@ -26,10 +26,37 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 		Statement stmt = con.createStatement();
 		//TO IMPLEMENT - SALES REPORT GENERATION
 		
+		String auctionID = request.getParameter("auctionID");
 		String bidID = request.getParameter("bidID");
+		ResultSet rs3 = stmt.executeQuery("SELECT * FROM Bid WHERE Bid.bidAuction = '"+ auctionID +"'");
 
+		int count = 0;
+
+		while (rs3.next()) {
+		    ++count;
+		    // Get data from the current row and use it
+		}
+		if(count == 1){
+			response.sendRedirect("deleteAuction.jsp");
+		}
+		ResultSet rs4 = stmt.executeQuery("SELECT MAX( Bid.bidID ) FROM Bid WHERE Bid.bidID = '"+ bidID +"'");
+		rs4.next();
+		String testBidID = rs4.getString(1);
+		if(testBidID.equals(bidID)){
+			ResultSet rs = stmt.executeQuery("SELECT MAX( Bid.bidID ) FROM Bid WHERE Bid.bidID < ( SELECT MAX( Bid.bidID ) FROM Bid WHERE Bid.bidID = '"+ bidID +"')");
+			rs.next();
+			String newBidID = rs.getString(1);
+			stmt.executeUpdate("UPDATE `Auctions` SET `winningBidID`='" + newBidID + "' WHERE `winningBidID`='" + bidID + "'");			
+			stmt.executeUpdate("DELETE FROM Bid WHERE Bid.bidID = '"+ bidID +"'");
+			response.sendRedirect("viewAuctionRep.jsp");
+						
+		} else{
+			stmt.executeUpdate("DELETE FROM Bid WHERE Bid.bidID = '"+ bidID +"'");
+		}
 		
-		stmt.executeQuery("DELETE FROM Bid WHERE Bid.BidID "+ bidID + ");
+		
+		
+		
 		response.sendRedirect("viewAuctionRep.jsp");
 		
 	} catch (Exception ex) {

@@ -27,8 +27,8 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 		//TO IMPLEMENT - SALES REPORT GENERATION
 		
 		String auctionID = request.getParameter("auctionID");
-		stmt.executeQuery("DELETE FROM Bid WHERE Bid.bidAuction= "+ auctionID);
-		stmt.executeQuery("DELETE FROM Auctions WHERE Auctions.auctionID= "+ auctionID);
+		stmt.executeUpdate("DELETE FROM Bid WHERE Bid.bidAuction = '" + auctionID + "'");
+		stmt.executeUpdate("DELETE FROM Auctions WHERE Auctions.auctionID= '" + auctionID + "'");
 		response.sendRedirect("auctionOverview.jsp");
 		
 	} catch (Exception ex) {

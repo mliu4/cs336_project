@@ -7,16 +7,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Buyer And Seller List</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
-<div align= center class = "navigation">
-<td>Welcome To Buyer/Seller Page</td><br />
-<a href = "logOut.jsp">Log Out</a>
-<a href = "mainIndex.jsp">Back to the Main Page</a>
-<br>
-<br>
-</div>
 <body>
+<!-- Welcome Banner code -->
+<div align = center class = "banner">
+<h1>Candle Feet - Shoe Auction House</h1>
+</div>
+
+<div align= center class = "navigation">
+<a href = "logOut.jsp">Log Out</a>
+<a href = "main_index.jsp">Back to the Main Page</a>
+</div>
+
+<h3>Welcome To Buyer/Seller Page</h3>
+
 <%
 	Connection con = null;
 	try {

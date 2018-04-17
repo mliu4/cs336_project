@@ -37,8 +37,11 @@ pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 		    // Get data from the current row and use it
 		}
 		if(count == 1){
-			response.sendRedirect("deleteAuction.jsp");
-		}
+			stmt.executeUpdate("UPDATE `Auctions` SET `winningBidID`= NULL WHERE `winningBidID`='" + bidID + "'");			
+			stmt.executeUpdate("DELETE FROM Bid WHERE Bid.bidID = '"+ bidID +"'");
+			response.sendRedirect("auctionOverview.jsp");
+			}
+		
 		ResultSet rs4 = stmt.executeQuery("SELECT MAX( Bid.bidID ) FROM Bid WHERE Bid.bidID = '"+ bidID +"'");
 		rs4.next();
 		String testBidID = rs4.getString(1);
